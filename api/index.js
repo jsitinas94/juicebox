@@ -1,8 +1,11 @@
 const express = require('express');
-const jwt = require('jsonwebtoken');
-const { getUserById } = require('../db');
-const { JWT_SECRET } = process.env;
 const apiRouter = express.Router();
+
+const jwt = require('jsonwebtoken');
+const { JWT_SECRET } = process.env;
+
+const { getUserById } = require('../db');
+
 
 apiRouter.use(async (req, res, next) => {
     const prefix = 'Bearer '
@@ -27,7 +30,7 @@ apiRouter.use(async (req, res, next) => {
         next({
             name: 'AuthorizationHeaderError',
             message: `Authorization token must start with ${ prefix }`
-        })
+        });
     }
 });
 
